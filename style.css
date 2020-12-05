@@ -1,0 +1,66 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.wrap {
+  position: relative;
+}
+
+.header {
+  text-align: center;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-image: url("./images/pattern-bg.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.header__text {
+  color: white;
+}
+
+.header__form {
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.header__form__input {
+  padding: 20px;
+}
+
+.header__form__button {
+  background-color: #2b2b2b;
+  border: none;
+  padding: 20px;
+}
+
+.info {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 20px;
+  text-align: center;
+}
+
+@media only screen and (min-width: 780px) {
+  .info {
+    text-align: left;
+  }
+}
+
+.info__card__header {
+  color: #969696;
+}
+
+.info__card__value {
+  color: #2b2b2b;
+}

@@ -1,0 +1,70 @@
+$black: hsl(0, 0%, 17%)
+$gray: hsl(0, 0%, 59%)
+
+@mixin rounded
+  border-radius: 20px
+
+*
+  margin: 0
+  padding: 0
+  box-sizing: border-box
+
+.wrap
+  position: relative
+
+.header
+  text-align: center
+  height: 300px
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  width: 100%
+  background-image: url("./images/pattern-bg.png")
+  background-position: center
+  background-repeat: no-repeat
+  background-size: cover
+
+  &__text
+    color: white
+
+  &__form
+    @include rounded
+    overflow: hidden
+
+    &__input
+      padding: 20px
+
+    &__button
+      background-color: $black
+      border: none
+      padding: 20px
+
+.info
+  position: absolute
+  top: 100%
+  left: 50%
+  transform: translate(-50%,-50%)
+  background-color: white
+  @include rounded
+  text-align: center
+  @media only screen and (min-width:780px)
+    text-align: left
+
+  &__card
+    &__header
+      color: $gray
+    &__value
+      color: $black
+
+.map
+
+
+
+// - Mobile: 375px
+// - Desktop: 1440px
+//
+// - Font size (text input): 18px
+//
+// - Family: [Rubik](https://fonts.google.com/specimen/Rubik)
+// - Weights: 400, 500, 700
