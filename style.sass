@@ -9,62 +9,147 @@ $gray: hsl(0, 0%, 59%)
   padding: 0
   box-sizing: border-box
 
+html
+  font-family: 'Rubik', sans-serif
+  font-size: 18px
+  height: 100vh
+
+body
+  height: 100%
+
 .wrap
   position: relative
-
-.header
-  text-align: center
-  height: 300px
   display: flex
   flex-direction: column
-  justify-content: center
   align-items: center
-  width: 100%
+  justify-content: flex-start
+
+.header
   background-image: url("./images/pattern-bg.png")
   background-position: center
   background-repeat: no-repeat
   background-size: cover
+  text-align: center
+  height: 300px
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: flex-start
+  width: 100%
+
 
   &__text
     color: white
+    user-select: none
+    margin-top: 32px
+    font-weight: 500
+
 
   &__form
-    @include rounded
-    overflow: hidden
+    width: 330px
+    height: 60px
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-wrap: nowrap
+    margin-top: 36px
+    @media only screen and (min-width:600px)
+      width: 50vw
+      max-width: 500px
+    @media only screen and (min-width:780px)
+      width: 560px
 
     &__input
+      height: 100%
+      width: 100%
       padding: 20px
+      border-radius: 20px 0 0 20px
+      border: none
+      font-size: 18px
+      font-weight: 500
+
+      &::placeholder
+        color: $gray
+        font-size: 14px
+        font-weight: 500
+        @media only screen and (min-width:780px)
+          font-size: 18px
+
 
     &__button
+      border-radius: 0 20px 20px 0
       background-color: $black
       border: none
       padding: 20px
+      width: 60px
+      height: 100%
+
+.vl
+  display: none
+  user-select: none
+  border-right: 1px solid $gray
+  height: 75px
+  opacity: 0.5
+  @media only screen and (min-width: 1080px)
+    display: block
 
 .info
+  width: 330px
+  height: 300px
   position: absolute
   top: 100%
-  left: 50%
-  transform: translate(-50%,-50%)
+  z-index: 1
+  margin-top: 25px
+  transform: translateY(-50%)
   background-color: white
   @include rounded
+  padding: 30px
   text-align: center
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  @media only screen and (min-width:600px)
+    width: 50vw
+    max-width: 500px
+
   @media only screen and (min-width:780px)
     text-align: left
+    flex-direction: row
+    align-items: center
+    width: 80vw
+    height: 160px
+    max-width: 1110px
+    margin-top: 0
 
   &__card
+    width: 100%
+    @media only screen and (min-width:780px)
+      height: 100%
+      width: 200px
+
     &__header
       color: $gray
+      font-size: .6rem
+      font-weight: 500
+      @media only screen and (min-width:780px)
+        font-size: .8rem
+
     &__value
       color: $black
+      margin-top: 8px
+      font-weight: 700
+      font-size: 1.2rem
+      @media only screen and (min-width:780px)
+        font-size: 1.5rem
+        font-weight: 500
 
-.map
-
+#mapid
+  height: 100%
+  width: 100%
+  z-index: 0
 
 
 // - Mobile: 375px
 // - Desktop: 1440px
 //
 // - Font size (text input): 18px
-//
-// - Family: [Rubik](https://fonts.google.com/specimen/Rubik)
-// - Weights: 400, 500, 700

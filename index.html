@@ -1,57 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
   <title>Frontend Mentor | IP Address Tracker</title>
 
   <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
+    .attribution {
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .attribution a {
+      color: hsl(228, 45%, 44%);
+    }
   </style>
 </head>
+
 <body>
   <div class="wrap">
 
-<header class="header">
-  <h1 class="header__text">IP Address Tracker</h1>
-  <form class="header__form" action="index.html" method="post">
-    <input class="header__form__input" type="text" name="" value="" placeholder="Search for any IP address or domain">
-    <button class="header__form__button" type="submit" name="button">></button>
-  </form>
-</header>
-  <div class="info">
-    <div class="info__card">
-      <h6 class="info__card__header">IP Address</h6>
-      <h1 class="info__card__value"></h1>
-    </div>
-    <div class="info__card">
-      <h6 class="info__card__header">Location</h6>
-      <h1 class="info__card__value"></h1>
-    </div>
-    <div class="info__card">
-      <h6 class="info__card__header">Timezone</h6>
-      <h1 class="info__card__value"></h1>
-    </div>
-    <div class="info__card">
-      <h6 class="info__card__header">ISP</h6>
-      <h1 class="info__card__value">UTC</h1> <!-- add offset value dynamically using the API -->
+    <header class="header">
+      <h2 class="header__text">IP Address Tracker</h2>
+      <form class="header__form" onsubmit="findLocation()" method="get">
+        <input class="header__form__input" type="text" id="input" name="" value="" placeholder="Search for any IP address or domain">
+        <button class="header__form__button" type="button" onclick="findLocation()" name="button"><img src="./images/icon-arrow.svg" alt="Arrow icon"></button>
+      </form>
+    </header>
 
+    <div class="info">
+      <div class="info__card">
+        <h6 class="info__card__header">IP ADDRESS</h6>
+        <h1 class="info__card__value" id="value-ip">28.56.116.84</h1>
+      </div>
+      <div class="vl"></div>
+      <div class="info__card">
+        <h6 class="info__card__header">LOCATION</h6>
+        <h1 class="info__card__value" id="value-location">London</h1>
+      </div>
+      <div class="vl"></div>
+      <div class="info__card">
+        <h6 class="info__card__header">TIMEZONE</h6>
+        <h1 class="info__card__value">UTC <span id="value-timezone">+0</span></h1>
+      </div>
+      <div class="vl"></div>
+      <div class="info__card">
+        <h6 class="info__card__header">ISP</h6>
+        <h1 class="info__card__value" id="value-isp">Plusnet</h1> <!-- add offset value dynamically using the API -->
+
+      </div>
     </div>
   </div>
-</div>
 
 
 
-  <div class="map">
-</div>
+  <div id="mapid">
+  </div>
 
   <!-- <div class="attribution">
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
     Coded by <a href="#">Your Name Here</a>.
   </div> -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+
+<script type="text/javascript">
+var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+
+L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox/streets-v11',
+    tileSize: 512,
+    zoomOffset: -1,
+    accessToken: 'pk.eyJ1IjoibWFyaWxvayIsImEiOiJja2liajU4am0wZGh2MnFrMG15dndqdzBqIn0.kNtRUtNYrkoLoK-BqNcB7w'
+}).addTo(mymap);
+
+var customIcon = L.icon({iconUrl: './images/icon-location.svg'});
+
+
+const input = document.getElementById('input');
+
+const valueIp = document.getElementById('value-ip');
+const valueLocation = document.getElementById('value-location');
+const valueTimezone = document.getElementById('value-timezone');
+const valueIsp = document.getElementById('value-isp');
+
+var marker = L.marker([51.505, -0.09], {icon: customIcon}).addTo(mymap);
+
+function findLocation() {
+  console.log(input.value);
+    let ip = input.value;
+    var api_key = "at_lfHCYgwapEKY6tRQrfwNhHfP0wS4k";
+    $(function () {
+       $.ajax({
+           url: "https://geo.ipify.org/api/v1",
+           data: {apiKey: api_key, ipAddress: ip},
+           success: function(data) {
+               // $("body").append("<pre>"+ JSON.stringify()+"</pre>");
+               console.log(data);
+               valueLocation.innerHTML = data.location.city + ", " + data.location.country + " " + data.location.postalCode
+               valueIp.innerHTML = data.ip
+               valueTimezone.innerHTML = data.location.timezone
+               valueIsp.innerHTML = data.isp
+               
+               marker.setLatLng([data.location.lat, data.location.lng]).update();
+               mymap.panTo(new L.LatLng(data.location.lat, data.location.lng));
+           }
+       });
+    });
+
+  }
+</script>
 </body>
 </html>
